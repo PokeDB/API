@@ -1,0 +1,26 @@
+{
+  "name": "pokedb",
+  "version": "1.0.0",
+  "description": "API for PokeDB",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PokeDB/API.git"
+  },
+  "keywords": [
+    "pokedb"
+  ],
+  "author": "PokeDB",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PokeDB/API/issues"
+  },
+  "homepage": "https://github.com/PokeDB/API#readme"
+}
