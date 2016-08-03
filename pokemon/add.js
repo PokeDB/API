@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var express = require('express');
 var router = express.Router();
+var SpawnPoint = require('../models/SpawnPoint');
 
 var POKEMONGO_MAP_FIELDS = [
   'spawnpoint_id',
@@ -13,43 +14,43 @@ var POKEMONGO_MAP_FIELDS = [
 ];
 
 router.post('/', function(req, res) {
-  let rawData = req.body;
+  let inputData = req.body;
 
-  if (!rawData) {
+  if (typeof inputData !== 'object') {
     res.status(400).json({ error: 'Json body is required' });
     return;
   }
+  if ('message' in inputData)
+    inputData = inputData.message
 
-  // PokemonGo-Map webhook format
-  if ('type' in rawData && 'message' in rawData) {
-    let parsedData = _.pick(
-      rawData.message,
-      POKEMONGO_MAP_FIELDS
-    );
-    if (_.size(parsedData) !== POKEMONGO_MAP_FIELDS.length) {
-      res.status(400).json({error: 'Unknown data format.'});
-      return;
-    }
+  let parsedData = _.pick(
+    inputData,
+    POKEMONGO_MAP_FIELDS
+  );
 
-    let data = {
-      _id: parsedData.pokemon_id + ':' + parsedData.disappear_time,
-      spawnpoint_id: parsedData.spawnpoint_id,
-      pokemon_id: parsedData.pokemon_id,
-      geo: {
+  if (_.size(parsedData) !== POKEMONGO_MAP_FIELDS.length) {
+    res.status(400).json({error: 'Unknown data format.'});
+  } else {
+    let spawnPoint = new SpawnPoint({
+      _id: parsedData.spawnpoint_id + ':' + parsedData.disappear_time,
+      spawnPointId: parsedData.spawnpoint_id,
+      pokemonId: parseInt(parsedData.pokemon_id),
+      loc: {
         type: 'Point',
         coordinates: [parsedData.longitude, parsedData.latitude]
       },
-      disappear_time: parsedData.disappear_time
-    }
+      disappearTime: parsedData.disappear_time
+    });
+    spawnPoint.save(function(error) {
+      if (error) console.error(error);
+    });
 
     // Add parsedData to db here
-    console.log(data);
+    console.log(parsedData);
 
     res.json({
       success: true
     });
-  } else {
-    res.status(400).json({error: 'Unknown data format.'});
   }
 });
 

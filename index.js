@@ -6,6 +6,11 @@ var app = express();
 // Parse incoming application/json
 app.use(bodyParser.json());
 
+// connect to mongo
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://10.0.10.10/pokeLab');
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+
 // routes
 var pokemon = require('./pokemon');
 
