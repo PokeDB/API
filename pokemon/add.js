@@ -39,7 +39,7 @@ router.post('/', function(req, res) {
         type: 'Point',
         coordinates: [parsedData.longitude, parsedData.latitude]
       },
-      disappearTime: parsedData.disappear_time
+      disappearTime: parsedData.disappear_time * 1000
     });
     spawnPoint.save(function(error) {
       if (error && error.code !== 11000)
