@@ -42,10 +42,10 @@ router.post('/', function(req, res) {
       disappearTime: parsedData.disappear_time
     });
     spawnPoint.save(function(error) {
-      if (error) console.error(error);
+      if (error && error.code !== 11000)
+        console.error(error);
     });
 
-    // Add parsedData to db here
     console.log(parsedData);
 
     res.json({
