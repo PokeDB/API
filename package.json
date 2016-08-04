@@ -1,7 +1,7 @@
 {
   "name": "pokedb",
   "version": "1.0.0",
-  "description": "API for PokeDB",
+  "description": "API for PokeLAB",
   "main": "index.js",
   "dependencies": {
     "bluebird": "^3.4.1",
@@ -17,15 +17,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PokeDB/API.git"
+    "url": "git+https://github.com/PokeLAB/API.git"
   },
   "keywords": [
     "pokedb"
   ],
-  "author": "PokeDB",
+  "author": "PokeLAB",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PokeDB/API/issues"
+    "url": "https://github.com/PokeLAB/API/issues"
   },
-  "homepage": "https://github.com/PokeDB/API#readme"
+  "homepage": "https://github.com/PokeLAB/API#readme"
 }
