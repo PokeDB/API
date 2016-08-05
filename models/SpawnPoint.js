@@ -1,3 +1,5 @@
+'use strict';
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -12,4 +14,3 @@ var spawnPointSchema = new Schema({
 var SpawnPoint = mongoose.model('spawnPoints', spawnPointSchema);
 
 module.exports = SpawnPoint;
-
