@@ -9,7 +9,7 @@ var spawnPointSchema = new Schema({
   spawnPointId:  String
 }, {collection: 'spawnPoints', typeKey: '$type'});
 
-spawnPointSchema.index({loc: '2dsphere'});
+spawnPointSchema.index({loc: '2dsphere', pokemonId: 1});
 
 var SpawnPoint = mongoose.model('spawnPoints', spawnPointSchema);
 
