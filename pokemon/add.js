@@ -17,39 +17,37 @@ router.post('/', function(req, res) {
   let inputData = req.body;
 
   if (typeof inputData !== 'object') {
-    res.status(400).json({ error: 'Json body is required' });
+    res.status(400).json({error: 'JSON body is required.'});
     return;
   }
   if ('message' in inputData)
-    inputData = inputData.message
+    inputData = inputData.message;
 
   let parsedData = _.pick(
     inputData,
     POKEMONGO_MAP_FIELDS
   );
 
-  if (_.size(parsedData) !== POKEMONGO_MAP_FIELDS.length) {
-    res.status(400).json({error: 'Unknown data format.'});
-  } else {
+  if (_.size(parsedData) === POKEMONGO_MAP_FIELDS.length) {
     let spawnPoint = new SpawnPoint({
       _id: parsedData.spawnpoint_id + ':' + parsedData.disappear_time,
-      spawnPointId: parsedData.spawnpoint_id,
-      pokemonId: parseInt(parsedData.pokemon_id),
+      disappearTime: parsedData.disappear_time * 1000,
       loc: {
         type: 'Point',
         coordinates: [parsedData.longitude, parsedData.latitude]
       },
-      disappearTime: parsedData.disappear_time * 1000
+      pokemonId: parseInt(parsedData.pokemon_id),
+      spawnPointId: parsedData.spawnpoint_id
     });
     spawnPoint.save(function(error) {
       if (error && error.code !== 11000)
         console.error(error);
     });
 
-    console.log(parsedData);
-
-    res.json({
-      success: true
+    res.json({success: true});
+  } else {
+    res.status(400).json({
+      error: 'Following fields are required: ' + POKEMONGO_MAP_FIELDS.join(', ')
     });
   }
 });
