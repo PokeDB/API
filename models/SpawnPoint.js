@@ -9,6 +9,8 @@ var spawnPointSchema = new Schema({
   spawnPointId:  String
 }, {collection: 'spawnPoints', typeKey: '$type'});
 
+spawnPointSchema.index({loc: '2dsphere'});
+
 var SpawnPoint = mongoose.model('spawnPoints', spawnPointSchema);
 
 module.exports = SpawnPoint;
