@@ -15,16 +15,16 @@ mongoose.connect('mongodb://10.0.10.10/pokeLab');
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 
 // routes
-var pokemon = require('./pokemon');
+var location = require('./location');
 
 app.get('/', function(req, res) {
   res.json({
-    name: 'PokeDB API',
+    name: 'PokeLab API',
     status: 'up'
   });
 });
 
-app.use('/pokemon', pokemon);
+app.use('/location', location);
 
 var port = process.env.NODE_ENV === 'production' ? 80 : 8080;
 
